@@ -8,7 +8,7 @@ The purpose of this project is to demonstrate the use of [Scaleway Transactional
 - nodejs >= 16.X.X
 - Scaleway Domain Zone
 NB: Another Domain Registrar can be used but it may required a slight update of our terraform regarding the 
-## Deployment
+## Steps
 1. Copy infrastructure/terraform.tfvars.template  -> infrastructure/provider.tf
   - Feed it with your Scaleway domain root zone
 2. Launch make command at the root folder
@@ -21,3 +21,50 @@ NB: Another Domain Registrar can be used but it may required a slight update of 
 ![TEM Validated](./docs/images/faas_output.png)
 
 NB: This step is manual for now it may be automated further
+
+# Execution
+The Faas can then be called using **HTTP POST** calls.
+- Parameters
+  - **mailTransport** : (type Query parameters, value (api|smtp) ) 
+    - defines how the mail is send to the target
+  - body : Mail content **DO NOT FORGET to fill from and to object in particular from with an email from your domain**
+    ```
+    {
+        "from": {
+            "name": "damien-test",
+            "email": "XXX@mail.XXX.XXXX.com"
+        },
+        "to": [
+            {
+            "name": "Damien",
+            "email": "XXX@XXXX.com"
+            }
+        ],
+        "subject": "Transactional Email Testing API",
+        "text": "Transactional Email Testing",
+        "html": "<p>Some <span style=\"font-weight:bold\">Transactional Email Testing</span>.</p>"
+    }
+    ```
+
+NB: The Faas function being private , you need to get a token using the following [documentation](https://www.scaleway.com/en/docs/compute/functions/how-to/create-auth-token-from-console/). This token must be passed as header variable using "X-AUTH-TOKEN" field
+
+```
+curl --location --request POST 'https://emailsenderqun4kden-email-sender-faas.functions.fnc.fr-par.scw.cloud?mailTransport=api' \
+--header 'X-AUTH-TOKEN: ' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "from": {
+            "name": "damien-test",
+            "email": "XXX@mail.XXX.XXXX.com"
+        },
+        "to": [
+            {
+            "name": "Damien",
+            "email": "XXX@XXXX.com"
+            }
+        ],
+        "subject": "Transactional Email Testing API",
+        "text": "Transactional Email Testing",
+        "html": "<p>Some <span style=\"font-weight:bold\">Transactional Email Testing</span>.</p>"
+    }'
+```
