@@ -10,7 +10,7 @@ The purpose of this project is to demonstrate the use of [Scaleway Transactional
 NB: Another Domain Registrar can be used but it may required a slight update of our terraform regarding the 
 ## Steps
 1. Copy infrastructure/terraform.tfvars.template  -> infrastructure/provider.tf
-  - Feed it with your Scaleway domain root zone
+    - Feed it with your Scaleway domain root zone
 2. Launch make command at the root folder
 3. After the terraform deployment is over , connect to your Scaleway console and triggers domain validation
 ![TEM Homepage](./docs/images/tem_homepage.png)
