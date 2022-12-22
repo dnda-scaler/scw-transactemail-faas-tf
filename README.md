@@ -24,6 +24,8 @@ NB: This step is manual for now it may be automated further
 
 # Execution
 The Faas can then be called using **HTTP POST** calls.
+**The Faas function being private , you need first to get a token using the following [documentation](https://www.scaleway.com/en/docs/compute/functions/how-to/create-auth-token-from-console/). This token must be passed as header variable using "X-AUTH-TOKEN" field**
+
 - Parameters
   - **mailTransport** : (type Query parameters, value (api|smtp) ) 
     - defines how the mail is send to the target
@@ -46,7 +48,6 @@ The Faas can then be called using **HTTP POST** calls.
     }
     ```
 
-NB: The Faas function being private , you need to get a token using the following [documentation](https://www.scaleway.com/en/docs/compute/functions/how-to/create-auth-token-from-console/). This token must be passed as header variable using "X-AUTH-TOKEN" field
 
 ```
 curl --location --request POST 'https://emailsenderqun4kden-email-sender-faas.functions.fnc.fr-par.scw.cloud?mailTransport=api' \
