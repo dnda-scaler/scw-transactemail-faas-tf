@@ -48,5 +48,5 @@ resource "scaleway_function" "email_sender_faas" {
   }
 }
 output "faas_url" {
-  value=scaleway_function.email_sender_faas.domain_name
+  value="https://${scaleway_function.email_sender_faas.domain_name}"
 }
