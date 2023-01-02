@@ -18,6 +18,10 @@ The purpose of this project is to demonstrate the use of [Scaleway Transactional
 NB: Another Domain Registrar can be used but it may required a slight update of our terraform regarding the 
 ## Steps
 1. Configure your environment variables, so that the scaleway terraform provider can interact with Scaleway API :
+   - SCW_ACCESS_KEY
+   - SCW_SECRET_KEY
+   - SCW_DEFAULT_PROJECT_ID
+   - SCW_DEFAULT_ORGANIZATION_ID
 
 NB: See [here](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs)
 
