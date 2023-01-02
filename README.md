@@ -20,13 +20,15 @@ NB: Another Domain Registrar can be used but it may required a slight update of 
 1. Configure your environment variables, so that the scaleway terraform provider can interact with Scaleway API :
 
 NB: See [here](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs)
+
 2. Copy infrastructure/terraform.tfvars.template  -> infrastructure/terraform.tfvars
     - Feed it with your Scaleway domain root zone
+
 3. Launch **make** command at the root folder
 
 4. After the terraform deployment is over , you must validate your TEM domain. 2 options can be used for the moment : 
-- [Manual Validation](#Manual Domain Validation)
-- [API Oriented Validation](#API Oriented Domain Validation)
+- [Manual Validation](#manual-domain-validation)
+- [API Oriented Validation](#api-oriented-domain-validation)
 
 5. Retrieve your faas endpoint from terraform output
 ![TEM Validated](./docs/images/faas_output.png)
