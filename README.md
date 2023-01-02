@@ -27,7 +27,7 @@ The Faas can then be called using **HTTP POST** calls.
 **The Faas function being private , you need first to get a token using the following [documentation](https://www.scaleway.com/en/docs/compute/functions/how-to/create-auth-token-from-console/). This token must be passed as header variable using "X-AUTH-TOKEN" field**
 
 - Parameters
-  - **mailTransport** : (type Query parameters, value (api|smtp) ) 
+  - **mailTransport** : (type Query parameters, value (api or smtp) ) 
     - defines how the mail is send to the target
   - body : Mail content **DO NOT FORGET to fill from and to object in particular from with an email from your domain**
     ```
