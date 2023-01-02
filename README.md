@@ -4,23 +4,52 @@ The purpose of this project is to demonstrate the use of [Scaleway Transactional
 - NodeJS based Scaleway Faas (Serverless code to send email through smtp|TEM API)
 # Deployment
 ## Prerequisites
+- Scaleway account with a IAM Token with at least following permissions
+    - Scope Organization
+       - IAM Manager, Organization Manager
+    - Scope Project
+       - FunctionsFullAccess
+       - DomainsDNSFullAccess
+       - TransactionalEmailFullAccess
+
 - Terraform >= 1.2.X
 - nodejs >= 16.X.X
 - Scaleway Domain Zone
 NB: Another Domain Registrar can be used but it may required a slight update of our terraform regarding the 
 ## Steps
-1. Copy infrastructure/terraform.tfvars.template  -> infrastructure/terraform.tfvars
+1. Configure your environment variables, so that the scaleway terraform provider can interact with Scaleway API :
+
+NB: See [here](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs)
+2. Copy infrastructure/terraform.tfvars.template  -> infrastructure/terraform.tfvars
     - Feed it with your Scaleway domain root zone
-2. Launch **make** command at the root folder
-3. After the terraform deployment is over , connect to your Scaleway console and triggers domain validation
+3. Launch **make** command at the root folder
+
+4. After the terraform deployment is over , you must validate your TEM domain. 2 options can be used for the moment : 
+- [Manual Validation](#Manual Domain Validation)
+- [API Oriented Validation](#API Oriented Domain Validation)
+
+5. Retrieve your faas endpoint from terraform output
+![TEM Validated](./docs/images/faas_output.png)
+
+### Manual Domain Validation
+connect to your Scaleway console and triggers domain validation
 ![TEM Homepage](./docs/images/tem_homepage.png)
 ![TEM Domain Validation](./docs/images/tem_domain_validation.png)
 ![TEM Validated](./docs/images/tem_validated.png)
 
-4. Retrieve your faas endpoint from terrafomrm output
-![TEM Validated](./docs/images/faas_output.png)
 
-NB: This step is manual for now it may be automated further
+### API Oriented Domain Validation
+ you can call the Scaleway API, by retrieving the output "domain_validation_url", then execute the following curl on it 
+ ```
+ curl --location --request POST 'domain_validation_url' \
+--header 'X-Auth-Token: XXXXXX-YYYYY' \
+--header 'Content-Type: application/json' \
+--data-raw '{}'
+ ```
+
+
+
+
 
 # Execution
 The Faas can then be called using **HTTP POST** calls.
@@ -69,3 +98,5 @@ curl --location --request POST 'https://emailsenderqun4kden-email-sender-faas.fu
         "html": "<p>Some <span style=\"font-weight:bold\">Transactional Email Testing</span>.</p>"
     }'
 ```
+## Cleanup
+Execute make clean at the root folder.
