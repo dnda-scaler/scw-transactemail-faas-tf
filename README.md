@@ -4,7 +4,7 @@ The purpose of this project is to demonstrate the use of [Scaleway Transactional
 - NodeJS based Scaleway Faas (Serverless code to send email through smtp|TEM API)
 # Deployment
 ## Prerequisites
-- Scaleway account with a IAM Token with at least following permissions
+- Scaleway account with an IAM Token with at least following permissions
     - Scope Organization
        - IAM Manager, Organization Manager
     - Scope Project
@@ -15,7 +15,9 @@ The purpose of this project is to demonstrate the use of [Scaleway Transactional
 - Terraform >= 1.2.X
 - nodejs >= 16.X.X
 - Scaleway Domain Zone
-NB: Another Domain Registrar can be used but it may required a slight update of our terraform regarding the 
+
+NB: Another Domain Registrar can be used but it may required a slight update of our terraform regarding the SPF , DKIM Records creation
+
 ## Steps
 1. Configure your environment variables, so that the scaleway terraform provider can interact with Scaleway API :
    - SCW_ACCESS_KEY
@@ -38,24 +40,20 @@ NB: See [here](https://registry.terraform.io/providers/scaleway/scaleway/latest/
 ![TEM Validated](./docs/images/faas_output.png)
 
 ### Manual Domain Validation
-connect to your Scaleway console and triggers domain validation
+Connect to your Scaleway console and triggers domain validation
 ![TEM Homepage](./docs/images/tem_homepage.png)
 ![TEM Domain Validation](./docs/images/tem_domain_validation.png)
 ![TEM Validated](./docs/images/tem_validated.png)
 
 
 ### API Oriented Domain Validation
- you can call the Scaleway API, by retrieving the output "domain_validation_url", then execute the following curl on it 
+ You can call the Scaleway API, by retrieving the output "domain_validation_url", then execute the following curl on it 
  ```
  curl --location --request POST 'domain_validation_url' \
---header 'X-Auth-Token: XXXXXX-YYYYY' \
+--header 'X-Auth-Token: XXXXXX-YYYYY-DDDD-CCECECECE' \
 --header 'Content-Type: application/json' \
 --data-raw '{}'
  ```
-
-
-
-
 
 # Execution
 The Faas can then be called using **HTTP POST** calls.
@@ -106,3 +104,6 @@ curl --location --request POST 'https://emailsenderqun4kden-email-sender-faas.fu
 ```
 ## Cleanup
 Execute make clean at the root folder.
+```
+make clean
+```
