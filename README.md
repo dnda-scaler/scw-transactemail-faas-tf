@@ -11,7 +11,7 @@ NB: Another Domain Registrar can be used but it may required a slight update of 
 ## Steps
 1. Copy infrastructure/terraform.tfvars.template  -> infrastructure/terraform.tfvars
     - Feed it with your Scaleway domain root zone
-2. Launch make command at the root folder
+2. Launch **make** command at the root folder
 3. After the terraform deployment is over , connect to your Scaleway console and triggers domain validation
 ![TEM Homepage](./docs/images/tem_homepage.png)
 ![TEM Domain Validation](./docs/images/tem_domain_validation.png)
